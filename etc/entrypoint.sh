@@ -32,10 +32,11 @@ echo "your SSL_CRT=${FILE_CRT}"
 mv -f /etc/nginx/shamuel.com.conf /etc/nginx/conf.d/shamuel.com.conf
 mv -f /etc/nginx/blog.shamuel.com.conf /etc/nginx/conf.d/blog.shamuel.com.conf
 
+mv -vf /etc/nginx/conf.d /etc/nginx/conf.d.old
+
 (
 while :
 do
-  mv -v /etc/nginx/conf.d /etc/nginx/conf.d.old
   sleep 10
   if [ ! -f /etc/nginx/ssl/certificates/_.${DOMAIN}.key ]; then
     lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
