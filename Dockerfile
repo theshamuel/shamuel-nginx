@@ -12,8 +12,8 @@ RUN apk add -U openssl && \
      apk add -U ca-certificates && \
      apk add -U curl && \
      apk add -U libc-dev && \
-     curl -sL https://github.com/xenolf/lego/releases/download/v1.0.1/lego_v1.0.1_linux_amd64.tar.gz --output /lego.tar.gz && \
-     tar -xzf /lego.tar.gz -C /usr/bin/ && \
+     curl -Lko /tmp/lego.tar.gz https://github.com/xenolf/lego/releases/download/v1.0.1/lego_v1.0.1_linux_amd64.tar.gz && \
+     tar -zxf /tmp/lego.tar.gz -C /usr/bin/ && \
      rm -rf /etc/nginx/conf.d/* && \
      chmod +x /entrypoint.sh
 
