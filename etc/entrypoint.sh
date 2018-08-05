@@ -4,7 +4,7 @@ echo "LETSENCRYPT=${LETSENCRYPT:=$LETSENCRYPT}"
 
 if [ ${LETSENCRYPT} != "true" ]; then
     echo "Cerificates is disabled"
-    sed -i "s|return 301 https://\$host\$request_uri|index index.html index.htm|g" /etc/nginx/nginx.conf
+  #  sed -i "s|return 301 https://\$host\$request_uri|index index.html index.htm|g" /etc/nginx/nginx.conf
     nginx -g "daemon off;"
     return 1
 fi
