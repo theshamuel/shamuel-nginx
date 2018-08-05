@@ -4,7 +4,7 @@ echo "LETSENCRYPT=${LETSENCRYPT:=$LETSENCRYPT}"
 
 if [ ${LETSENCRYPT} != "true" ]; then
     echo "Cerificates is disabled"
-  #  sed -i "s|return 301 https://\$host\$request_uri|index index.html index.htm|g" /etc/nginx/nginx.conf
+    sed -i "s|return 301 https://\$host\$request_uri|index index.html index.htm|g" /etc/nginx/nginx.conf
     nginx -g "daemon off;"
     return 1
 fi
@@ -37,11 +37,11 @@ mv -vf /etc/nginx/conf.d /etc/nginx/conf.d.old
 (
 while :
 do
-  sleep 10
+  sleep 5
   if [ ! -f /etc/nginx/ssl/certificates/_.${DOMAIN}.key ]; then
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
+    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
   else
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 renew #Update certificates
+    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --dns="route53" --http=:81 renew #Update certificates
   fi
   mv -v /etc/nginx/conf.d.old /etc/nginx/conf.d
   echo "Restart nginx..."
