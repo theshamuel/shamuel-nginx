@@ -39,9 +39,9 @@ while :
 do
   sleep 5
   if [ ! -f /etc/nginx/ssl/certificates/_.${DOMAIN}.key ]; then
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
+    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
   else
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --dns="route53" --http=:81 renew #Update certificates
+    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --dns="route53" --http=:81 renew #Update certificates
   fi
   mv -v /etc/nginx/conf.d.old /etc/nginx/conf.d
   echo "Restart nginx..."
